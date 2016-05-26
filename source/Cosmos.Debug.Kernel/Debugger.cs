@@ -31,8 +31,22 @@ namespace Cosmos.Debug.Kernel
         {
         } // plugged
 
-
         internal static void DoSendNumber(uint aNumber)
+        {
+            // plugged
+        }
+
+        internal static void DoSendNumber(int aNumber)
+        {
+            // plugged
+        }
+
+        internal static void DoSendNumber(ulong aNumber)
+        {
+            // plugged
+        }
+
+        internal static void DoSendNumber(long aNumber)
         {
             // plugged
         }
@@ -48,6 +62,21 @@ namespace Cosmos.Debug.Kernel
         }
 
         public void SendNumber(uint aNumber)
+        {
+            DoSendNumber(aNumber);
+        }
+
+        public void SendNumber(int aNumber)
+        {
+            DoSendNumber(aNumber);
+        }
+
+        public void SendNumber(ulong aNumber)
+        {
+            DoSendNumber(aNumber);
+        }
+
+        public void SendNumber(long aNumber)
         {
             DoSendNumber(aNumber);
         }
@@ -87,29 +116,50 @@ namespace Cosmos.Debug.Kernel
 
         public void Send(string aText)
         {
-            if (!string.IsNullOrEmpty(aText))
-            {
-                string xText = aText;
-                if (!string.IsNullOrEmpty(mRing))
-                {
-                    string xPrepend = string.Concat("[", mRing);
-                    if (!string.IsNullOrEmpty(mSection))
-                    {
-                        xPrepend = string.Concat(xPrepend, ":", mSection);
-                    }
-                    xPrepend = string.Concat(xPrepend, "]: ");
-                    xText = string.Concat(xPrepend, xText);
-                }
-                DoSend(xText);
-            }
+            DoSend(aText);
         }
 
         [Conditional("COSMOSDEBUG")]
         public void SendInternal(string aText)
         {
-            Send(aText);
+            DoSend(aText);
         }
 
+        [Conditional("COSMOSDEBUG")]
+        public void SendInternal(uint aNumber)
+        {
+            DoSendNumber(aNumber);
+        }
+
+        [Conditional("COSMOSDEBUG")]
+        public void SendInternal(int aNumber)
+        {
+            DoSendNumber(aNumber);
+        }
+
+        [Conditional("COSMOSDEBUG")]
+        public void SendInternal(ulong aNumber)
+        {
+            DoSendNumber(aNumber);
+        }
+
+        [Conditional("COSMOSDEBUG")]
+        public void SendInternal(long aNumber)
+        {
+            DoSendNumber(aNumber);
+        }
+
+        [Conditional("COSMOSDEBUG")]
+        public void SendInternal(float aNumber)
+        {
+            DoSendNumber(aNumber);
+        }
+
+        [Conditional("COSMOSDEBUG")]
+        public void SendInternal(double aNumber)
+        {
+            DoSendNumber(aNumber);
+        }
         //public void OldSend(string aText) {
         //    // TODO: Need to fix this so it can send empty strings.
         //    // Sending empty strings locks it up right now

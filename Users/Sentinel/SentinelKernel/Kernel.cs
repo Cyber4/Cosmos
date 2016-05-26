@@ -11,15 +11,17 @@ namespace SentinelKernel
     {
         protected override void BeforeRun()
         {
+            Console.WriteLine("Cosmos booted successfully.");
         }
 
         protected override void Run()
         {
-            string a = "test";
-            double b = 1.25;
-            Console.WriteLine($"{a} = {b}");
-            mDebugger.Send($"{a} = {b}");
+            byte[] a = { 0x01, 0x02 };
+            char[] b = { 'a', 'b' };
+            string[] c = { "a", "b" };
+            byte a1 = a[0];
+            char b1 = b[0];
+            string c1 = c[0];
         }
     }
 }
-

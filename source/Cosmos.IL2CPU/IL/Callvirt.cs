@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 // using System.Collections.Generic;
 // using System.Linq;
 using CPU = Cosmos.Assembler.x86;
@@ -93,16 +94,26 @@ namespace Cosmos.IL2CPU.X86.IL
              * $esp                 Params
              * $esp + mThisOffset   This
              */
-
-                new CPUx86.Mov { DestinationReg = CPUx86.Registers.EAX, SourceReg = CPUx86.Registers.ESP, SourceIsIndirect = true, SourceDisplacement = (int)xThisOffset };
-                new CPUx86.Mov { DestinationReg = CPUx86.Registers.EAX, SourceReg = CPUx86.Registers.EAX, SourceIsIndirect = true };
-                new CPUx86.Push { DestinationReg = CPUx86.Registers.EAX, DestinationIsIndirect = true };
+                Type xPopType = aOp.StackPopTypes.Last();
+                if ((xPopType.IsPointer) || (xPopType.IsByRef))
+                {
+                    xPopType = xPopType.GetElementType();
+                    string xTypeId = GetTypeIDLabel(xPopType);
+                    new CPUx86.Push { DestinationRef = ElementReference.New(xTypeId), DestinationIsIndirect = true };
+                }
+                else
+                {
+                    new CPUx86.Mov { DestinationReg = CPUx86.Registers.EAX, SourceReg = CPUx86.Registers.ESP, SourceIsIndirect = true, SourceDisplacement = (int)xThisOffset };
+                    new CPUx86.Mov { DestinationReg = CPUx86.Registers.EAX, SourceReg = CPUx86.Registers.EAX, SourceIsIndirect = true };
+                    new CPUx86.Push { DestinationReg = CPUx86.Registers.EAX, DestinationIsIndirect = true };
+                }
                 new CPUx86.Push { DestinationValue = aTargetMethodUID };
                 new CPUx86.Call { DestinationLabel = LabelName.Get(VTablesImplRefs.GetMethodAddressForTypeRef) };
                 if (xExtraStackSize > 0)
                 {
                     xThisOffset -= xExtraStackSize;
                 }
+
                 /*
              * On the stack now:
              * $esp                 Params

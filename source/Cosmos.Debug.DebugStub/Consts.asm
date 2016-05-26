@@ -1,4 +1,4 @@
-; Generated at 1/16/2016 12:38:39 PM
+; Generated at 3/27/2016 7:24:32 PM
 
 
 
@@ -57,6 +57,7 @@ DebugStub_Const_Ds2Vs_StackCorruptionOccurred equ 15
 DebugStub_Const_Ds2Vs_MessageBox equ 16
 DebugStub_Const_Ds2Vs_NullReferenceOccurred equ 17
 DebugStub_Const_Ds2Vs_SimpleNumber equ 18
-DebugStub_Const_Ds2Vs_ComplexSingleNumber equ 19
-DebugStub_Const_Ds2Vs_ComplexDoubleNumber equ 20
+DebugStub_Const_Ds2Vs_SimpleLongNumber equ 19
+DebugStub_Const_Ds2Vs_ComplexNumber equ 20
+DebugStub_Const_Ds2Vs_ComplexLongNumber equ 21
 
